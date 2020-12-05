@@ -3,7 +3,7 @@ $in = get-content .\input.txt
 function getHalfRow([string]$side, [array]$list) {
     switch($side) {
         "F" {return $list[0..(($list.Length / 2)-1)] }
-        "B" {$e = $list.Length; $e--; return $list[($list.Length / 2)..($e)]}
+        "B" {$e = $list.Length; $e--; return $list[($list.Length / 2)..($e)]} #Very strange quirk - if I just use (list.Length - 1) I always get -1 no matter the length
         "default" { throw "illegal input"}
     }
 }
