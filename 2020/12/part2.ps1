@@ -4,7 +4,7 @@ $in = Get-Content .\input.txt
 [int]$x = 0
 [int]$y = 0
 
-#Waypoint pos
+#Waypoint pos relative to ship
 [int]$wx = 10
 [int]$wy = 1
 
@@ -33,8 +33,8 @@ foreach ($instr in $in) {
                 break
             }
             "F" {
-                $x = $x + ([int]$Matches.num * $wx)
-                $y = $y + ([int]$Matches.num * $wy)
+                $x += ([int]$Matches.num * $wx)
+                $y += ([int]$Matches.num * $wy)
                 break
             }
         }
