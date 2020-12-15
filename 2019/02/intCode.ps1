@@ -20,6 +20,16 @@ function runIntcode([int[]]$program) {
                 $pos += 4
                 break
             }
+            3 {
+                $program[$program[$pos+1]] = Read-Host -Prompt "Enter input"
+                $pos += 2
+                break
+            }
+            4{
+                write-host ("Output: {0}" -f $program[$program[$pos+1]])
+                $pos += 2
+                break
+            }
             99 {
                 $run = $false
                 break
