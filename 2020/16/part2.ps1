@@ -42,20 +42,20 @@ while ($i -lt $in.Length) {
 
 #Find valid tickets
 $validTickets = @()
-:loop1 foreach($t in $tickets) {
-    :loop2 foreach($n in $t){
+:loop1 foreach ($t in $tickets) {
+    foreach ($n in $t) {
         $isValid = $false
-        foreach($r in $rules) {
-            if($r.isValid($n)) {
+        foreach ($r in $rules) {
+            if ($r.isValid($n)) {
                 $isValid = $true
                 break
             }
         }
-        if(!$isValid) {
+        if (!$isValid) {
             continue loop1
         }
     }
-    $validTickets += ,$t
+    $validTickets += , $t
 }
 
 #Determine which rows are valid for which rules
@@ -65,7 +65,7 @@ for ($i = 0; $i -lt $validTickets[0].Length; $i++) {
         $isValid = $true
         foreach ($n in $nums) {
             if (!$r.isValid($n)) {
-                write-host ("{0} is not valid as {1}" -f $n,$r.name)
+                #write-host ("{0} is not valid as {1}" -f $n,$r.name)
                 $isValid = $false
                 break
             }
@@ -76,24 +76,25 @@ for ($i = 0; $i -lt $validTickets[0].Length; $i++) {
     }
 }
 
+#Find order of fields by verifying which field has only one valid row
 $fieldOrder = @("") * 20
-while($fieldOrder -contains "") {
+while ($fieldOrder -contains "") {
     $foundRows = @()
-    foreach($r in $rules |where{$_.rows.Length -eq 1}) {
+    foreach ($r in $rules | where { $_.rows.Length -eq 1 }) {
         $fieldOrder[$r.rows[0]] = $r.name
         $foundRows += $r.rows[0]
     }
-    foreach($row in $foundRows) {
-        foreach($r in $rules) {
-            $r.rows = $r.rows | where{$_ -ne $row}
+    foreach ($row in $foundRows) {
+        foreach ($r in $rules) {
+            $r.rows = $r.rows | where { $_ -ne $row }
         }
     }
 }
 
-
+#Calculate result
 $res = 1
-for ($i= 0;$i -lt $fieldOrder.Length; $i++) {
-    if($fieldOrder[$i] -like 'departure*') {
+for ($i = 0; $i -lt $fieldOrder.Length; $i++) {
+    if ($fieldOrder[$i] -like 'departure*') {
         $res = $res * $myTicket[$i]
     }
 }
