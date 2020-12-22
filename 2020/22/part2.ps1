@@ -20,7 +20,7 @@ function playGame([System.Collections.Queue]$p1, [System.Collections.Queue]$p2, 
     $round = 1
     while ($p1.Count -gt 0 -and $p2.Count -gt 0) {
         #Write-Host ("Playing game {0} round {1} level{2}" -f $game,$round,$level)
-        $cards = ($p1.ToArray() + $p2.ToArray()) -join '-'
+        $cards = ($p1.ToArray() + '#' + $p2.ToArray()) -join '-'
         if ($playedHands.ContainsKey($cards)) {
             return $true
         }
