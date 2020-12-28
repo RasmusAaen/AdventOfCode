@@ -1,9 +1,10 @@
 $in = Get-Content .\input.txt
 
+#Hex coordinate system using cube coordinates (https://www.redblobgames.com/grids/hexagons/#coordinates)
 function step([int[]]$location, [string]$direction) {
-    [int]$x = $location[0]
-    [int]$y = $location[1]
-    [int]$z = $location[2]
+    $x = $location[0]
+    $y = $location[1]
+    $z = $location[2]
 
     switch ($direction) {
         'w' { return @(($x - 1), ($y + 1), $z) }
@@ -48,8 +49,7 @@ function updateFloor() {
                 $sLoc = $loc -join ','
                 if ($neighbourCount.ContainsKey($sLoc)) {
                     $neighbourCount[$sLoc]++
-                }
-                else {
+                } else {
                     $neighbourCount.Add($sLoc, 1)
                 }
             }
@@ -109,7 +109,7 @@ $days = 100
 for ($i = 1; $i -le $days; $i++) {
     $global:tiles = updateFloor
     if ($i % 10 -eq 0) {
-        write-host ("Day {0}: {1}" -f $i, (countBlackTiles))
+        write-host ("Day {0}: {1} black tiles out of {2} total" -f $i, (countBlackTiles), $global:tiles.Count)
     }
 }
 
