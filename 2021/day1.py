@@ -1,8 +1,4 @@
-﻿
-def readfile(name: str) -> list:
-    with open(name, encoding='utf-8') as file:
-        return [int(line) for line in file]
-
+﻿from aoc import input_as_ints
 
 def part1(values: list) -> int:
     incr = 0
@@ -29,6 +25,6 @@ def test():
 
 if __name__ == "__main__":
     test()
-    vals = readfile('C:\\Repos\\Privat\\AdventOfCode\\2021\\input_day1.txt')
+    vals = input_as_ints('C:\\Repos\\Privat\\AdventOfCode\\2021\\input_day1.txt')
     print(f"Part 1: {part1(vals)}")
     print(f"Part 2: {part2(vals)}")
