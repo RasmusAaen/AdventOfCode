@@ -1,8 +1,17 @@
-﻿import collections
-import math
+﻿from math import prod
 from aoc import *
 
 def parPacket(p: str, pos: int, versions: list):
+
+    eval_ops = {
+        0:sum,
+        1:prod,
+        2:min,
+        3:max,
+        5:lambda v:int(v[0] > v[1]),
+        6:lambda v:int(v[0] < v[1]),
+        7:lambda v:int(v[0] == v[1])
+    }
 
     ver = int(p[pos:pos+3],2)
     pos += 3
@@ -30,7 +39,7 @@ def parPacket(p: str, pos: int, versions: list):
             while pos < orgPos + pLen:
                 pac, pos = parPacket(p, pos, versions)
                 vals.append(pac)
-            return calc(vals, typ), pos
+            return eval_ops[typ](vals), pos
 
         else:
             pNum = int(p[pos:pos+11], 2)
@@ -38,24 +47,7 @@ def parPacket(p: str, pos: int, versions: list):
             for _ in range(pNum):
                 pac, pos = parPacket(p, pos, versions)
                 vals.append(pac)
-            return calc(vals, typ), pos
-
-def calc(vals: list, op: int):
-    if op == 0:
-        return sum(vals)
-    elif op == 1:
-        return math.prod(vals)
-    elif op == 2:
-        return min(vals)
-    elif op == 3:
-        return max(vals)
-    elif op == 5:
-        return 1 if vals[0] > vals[1] else 0
-    elif op == 6:
-        return 1 if vals[0] < vals[1] else 0
-    elif op == 7:
-        return 1 if vals[0] == vals[1] else 0
-
+            return eval_ops[typ](vals), pos
 
 def part1(values: str) -> int:
     b  =  ''
@@ -86,6 +78,6 @@ def test():
 
 if __name__ == "__main__":
     test()
-    vals = input_as_string('C:\\Repos\\Privat\\AdventOfCode\\2021\\input_day16.txt')
-    print(f"Part 1: {part1(vals)}")
-    print(f"Part 2: {part2(vals)}")
+    inp = input_as_string('C:\\Repos\\Privat\\AdventOfCode\\2021\\input_day16.txt')
+    print(f"Part 1: {part1(inp)}")
+    print(f"Part 2: {part2(inp)}")
