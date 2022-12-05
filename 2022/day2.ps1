@@ -1,13 +1,13 @@
 ﻿$in = Get-Content .\input_day2.txt
 
-$score = 0
-
 $sc = @{
   'X' = 1
   'Y' = 2
   'Z' = 3
 }
 
+#Part 1
+$score = 0
 foreach($round in $in) {
   $op,$me = $round -split ' '
   $score += $sc[$me]
@@ -35,8 +35,8 @@ foreach($round in $in) {
 }
 $score
 
+#Part 2
 $score = 0
-
 foreach ($round in $in) {
   $op,$res = $round -split ' '
   switch ($res) {

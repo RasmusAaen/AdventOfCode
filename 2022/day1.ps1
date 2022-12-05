@@ -1,4 +1,6 @@
 ﻿$in = Get-Content .\input_day1.txt
+
+#Part 1
 $cals = @()
 $c = 0
 foreach($ln in $in) {
@@ -11,5 +13,6 @@ foreach($ln in $in) {
 }
 $cals | sort -Descending| select -first 1
 
+#Part 2
 ($cals | sort -Descending | select -First 3 | measure -Sum).Sum
 
